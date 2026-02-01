@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.pkl
+.env
+.vscode/
+.idea/
+kafka-data/
+kafka-logs/
