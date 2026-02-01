@@ -1,18 +1,14 @@
-kafka-python
-faker
-pandas
-scikit-learn
-joblib
-streamlit
+streamlit>=1.35.0
 pandas
 numpy
 plotly
 sqlalchemy
 pymysql
+scikit-learn
+joblib
 requests
-numpy
-mysql-connector-python
-altair==4.2.2
+
+
 
 
 
