@@ -12,5 +12,8 @@ pymysql
 requests
 numpy
 mysql-connector-python
+altair==4.2.2
+
+
 
 
