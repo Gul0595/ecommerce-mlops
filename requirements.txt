@@ -3,7 +3,14 @@ faker
 pandas
 scikit-learn
 joblib
+streamlit
 pandas
 numpy
+plotly
+sqlalchemy
+pymysql
+requests
+numpy
 mysql-connector-python
+
 
