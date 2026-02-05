@@ -18,7 +18,8 @@ st.set_page_config(
 @st.cache_resource
 def get_engine():
     return create_engine(
-        "mysql+pymysql://root@localhost:3307/ecommerce_db"
+        "mysql+pymysql://root:qXFFWJWhuTIPBdFPgLjHNFXDGUSTwbPC@gondola.proxy.rlwy.net:34879/railway",
+        pool_pre_ping=True
     )
 
 engine = get_engine()
@@ -29,21 +30,12 @@ engine = get_engine()
 @st.cache_data
 def load_sales():
     query = """
-        SELECT
-            order_id,
-            product_name,
-            category,
-            city,
-            region,
-            customer_type,
-            quantity,
-            discount_pct,
-            discount_amount,
-            net_amount,
-            order_date,
-            order_hour
+        SELECT order_id, product_name, category,
+            city, region, customer_type, quantity, discount_pct,
+            discount_amount, net_amount, order_date, order_hour
         FROM sales_events
     """
+    engine = get_engine()
     df = pd.read_sql(query, engine)
     df["order_date"] = pd.to_datetime(df["order_date"])
     return df
@@ -270,3 +262,4 @@ with tabs[4]:
 # Footer
 # -------------------------------------------------
 st.caption("© Executive Ecommerce Analytics Platform")
+
