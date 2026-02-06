@@ -24,18 +24,18 @@ st.markdown("""
 
 /* Custom Coral Headings */
 h1 {
-    color: #ff5b03 !important;
+    color: #0284c7 !important;
     font-weight: 700;
     letter-spacing: 1px;
 }
 
 h2 {
-    color: #1e293b !important;
+    color: #0284c7 !important;
     font-weight: 600;
 }
 
 h3 {
-    color: #334155 !important;
+    color: #0ea5e9 !important;
 }
 
 /* KPI Cards */
@@ -311,6 +311,7 @@ with tabs[4]:
 # -------------------------------------------------
 st.divider()
 st.caption("© 2026 Executive Ecommerce Analytics Platform | Built with Streamlit & ML")
+
 
 
 
