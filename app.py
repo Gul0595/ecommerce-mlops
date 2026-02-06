@@ -22,20 +22,20 @@ st.markdown("""
     background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 100%);
 }
 
-/* Coral Blue Headings */
+/* Custom Coral Headings */
 h1 {
-    color: #0ea5e9 !important;   /* coral blue primary */
+    color: #ff5b03 !important;
     font-weight: 700;
     letter-spacing: 1px;
 }
 
 h2 {
-    color: #0284c7 !important;   /* slightly deeper blue */
+    color: #1e293b !important;
     font-weight: 600;
 }
 
 h3 {
-    color: #38bdf8 !important;   /* softer accent blue */
+    color: #334155 !important;
 }
 
 /* KPI Cards */
@@ -311,6 +311,7 @@ with tabs[4]:
 # -------------------------------------------------
 st.divider()
 st.caption("© 2026 Executive Ecommerce Analytics Platform | Built with Streamlit & ML")
+
 
 
 
