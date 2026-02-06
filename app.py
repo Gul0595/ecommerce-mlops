@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from sqlalchemy import create_engine
-from datetime import datetime
 
 # -------------------------------------------------
 # Page config
@@ -11,34 +10,39 @@ st.set_page_config(
     page_title="Executive Ecommerce Analytics & ML Dashboard",
     layout="wide"
 )
+
 # -------------------------------------------------
-# Ecommerce Background
-# -------------------------------------------------
-# -------------------------------------------------
-# Premium Background Styling
+# Premium Styling
 # -------------------------------------------------
 st.markdown("""
 <style>
+
+/* Background Gradient */
 [data-testid="stAppViewContainer"] {
     background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 100%);
 }
 
+/* Main Padding */
 .block-container {
     padding-top: 2rem;
     padding-bottom: 2rem;
 }
-</style>
-""", unsafe_allow_html=True)
 
-st.markdown("""
-<style>
+/* KPI Card Styling */
 div[data-testid="metric-container"] {
     background-color: white;
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 14px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     border: 1px solid rgba(0,0,0,0.05);
 }
+
+/* Sidebar Styling */
+section[data-testid="stSidebar"] {
+    background-color: #ffffff;
+    border-right: 1px solid #e5e7eb;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -65,7 +69,6 @@ def load_sales():
             discount_amount, net_amount, order_date, order_hour
         FROM sales_events
     """
-    engine = get_engine()
     df = pd.read_sql(query, engine)
     df["order_date"] = pd.to_datetime(df["order_date"])
     return df
@@ -75,7 +78,8 @@ sales_df = load_sales()
 # -------------------------------------------------
 # Sidebar Filters
 # -------------------------------------------------
-st.sidebar.title("🔎 Filters")
+st.sidebar.markdown("## ⚙️ Filter Controls")
+st.sidebar.caption("Refine dashboard insights dynamically")
 
 city_filter = st.sidebar.multiselect(
     "City",
@@ -115,8 +119,6 @@ discount_range = st.sidebar.slider(
 # -------------------------------------------------
 # Apply filters
 # -------------------------------------------------
-st.sidebar.markdown("## ⚙️ Filter Controls")
-st.sidebar.caption("Refine dashboard insights dynamically")
 filtered_df = sales_df.copy()
 
 if city_filter:
@@ -140,7 +142,11 @@ filtered_df = filtered_df[
 # -------------------------------------------------
 # Header
 # -------------------------------------------------
-st.title("🛒 Executive Ecommerce Analytics & ML Dashboard")
+st.markdown("""
+# 🛒 Executive Ecommerce Analytics Dashboard
+Real-time business intelligence powered by Machine Learning
+""")
+st.divider()
 
 tabs = st.tabs([
     "📊 Overview",
@@ -151,9 +157,10 @@ tabs = st.tabs([
 ])
 
 # -------------------------------------------------
-# TAB 1 — Executive Overview
+# TAB 1 — Overview
 # -------------------------------------------------
 with tabs[0]:
+
     col1, col2, col3, col4 = st.columns(4)
 
     col1.metric("📦 Total Orders", f"{len(filtered_df):,}")
@@ -164,85 +171,46 @@ with tabs[0]:
         f"{(filtered_df['discount_pct'] > 0).mean() * 100:.1f}%"
     )
 
+    st.subheader("📈 Daily Revenue Trend")
+
     daily_revenue = (
-        filtered_df
-        .groupby("order_date", as_index=False)["net_amount"]
-        .sum()
+        filtered_df.groupby("order_date", as_index=False)["net_amount"].sum()
     )
 
     fig = px.line(
         daily_revenue,
         x="order_date",
-        y="net_amount",
-        title="Daily Revenue Trend"
+        y="net_amount"
     )
+
     fig.update_layout(
         template="plotly_white",
-        title_x=0.3,
-        title_font=dict(size=18)
+        paper_bgcolor="white",
+        plot_bgcolor="white"
     )
 
     st.plotly_chart(fig, use_container_width=True)
-    
-    with st.container():
-    st.markdown("""
-        <div style="
-            background-color:white;
-            padding:20px;
-            border-radius:15px;
-            box-shadow:0 6px 18px rgba(0,0,0,0.07);
-        ">
-    """, unsafe_allow_html=True)
-
-    st.plotly_chart(fig, use_container_width=True)
-
-    st.markdown("</div>", unsafe_allow_html=True)
-
 
 # -------------------------------------------------
-# TAB 2 — City & Product Insights
+# TAB 2 — City & Product
 # -------------------------------------------------
 with tabs[1]:
+
     col1, col2 = st.columns(2)
 
     city_sales = (
-        filtered_df
-        .groupby("city", as_index=False)["net_amount"]
+        filtered_df.groupby("city", as_index=False)["net_amount"]
         .sum()
         .sort_values("net_amount", ascending=False)
     )
 
-    fig_city = px.bar(
-        city_sales,
-        x="city",
-        y="net_amount",
-        title="Revenue by City"
-    )
-    fig.update_layout(
-        template="plotly_white",
-        title_x=0.3,
-        title_font=dict(size=18)
-    )
+    fig_city = px.bar(city_sales, x="city", y="net_amount")
+    fig_city.update_layout(template="plotly_white")
+
     col1.plotly_chart(fig_city, use_container_width=True)
-    
-    with st.container():
-    st.markdown("""
-        <div style="
-            background-color:white;
-            padding:20px;
-            border-radius:15px;
-            box-shadow:0 6px 18px rgba(0,0,0,0.07);
-        ">
-    """, unsafe_allow_html=True)
-
-    st.plotly_chart(fig, use_container_width=True)
-
-    st.markdown("</div>", unsafe_allow_html=True)
-
 
     product_sales = (
-        filtered_df
-        .groupby("product_name", as_index=False)["net_amount"]
+        filtered_df.groupby("product_name", as_index=False)["net_amount"]
         .sum()
         .sort_values("net_amount", ascending=False)
         .head(10)
@@ -252,83 +220,47 @@ with tabs[1]:
         product_sales,
         x="net_amount",
         y="product_name",
-        orientation="h",
-        title="Top 10 Products by Revenue"
+        orientation="h"
     )
-    fig.update_layout(
-        template="plotly_white",
-        title_x=0.3,
-        title_font=dict(size=18)
-    )
+
+    fig_prod.update_layout(template="plotly_white")
+
     col2.plotly_chart(fig_prod, use_container_width=True)
-    
-    with st.container():
-    st.markdown("""
-        <div style="
-            background-color:white;
-            padding:20px;
-            border-radius:15px;
-            box-shadow:0 6px 18px rgba(0,0,0,0.07);
-        ">
-    """, unsafe_allow_html=True)
-
-    st.plotly_chart(fig, use_container_width=True)
-
-    st.markdown("</div>", unsafe_allow_html=True)
-
 
 # -------------------------------------------------
-# TAB 3 — Time-based Insights
+# TAB 3 — Time Insights
 # -------------------------------------------------
 with tabs[2]:
+
     col1, col2 = st.columns(2)
 
     hourly_sales = (
-        filtered_df
-        .groupby("order_hour", as_index=False)["net_amount"]
-        .sum()
+        filtered_df.groupby("order_hour", as_index=False)["net_amount"].sum()
     )
 
-    fig_hour = px.line(
-        hourly_sales,
-        x="order_hour",
-        y="net_amount",
-        title="Revenue by Hour"
-    )
-    fig.update_layout(
-        template="plotly_white",
-        title_x=0.3,
-        title_font=dict(size=18)
-    )
+    fig_hour = px.line(hourly_sales, x="order_hour", y="net_amount")
+    fig_hour.update_layout(template="plotly_white")
+
     col1.plotly_chart(fig_hour, use_container_width=True)
 
     day_sales = (
-        filtered_df
-        .assign(day=filtered_df["order_date"].dt.day_name())
+        filtered_df.assign(day=filtered_df["order_date"].dt.day_name())
         .groupby("day", as_index=False)["net_amount"]
         .sum()
     )
 
-    fig_day = px.bar(
-        day_sales,
-        x="day",
-        y="net_amount",
-        title="Revenue by Day of Week"
-    )
-    fig.update_layout(
-        template="plotly_white",
-        title_x=0.3,
-        title_font=dict(size=18)
-    )
+    fig_day = px.bar(day_sales, x="day", y="net_amount")
+    fig_day.update_layout(template="plotly_white")
+
     col2.plotly_chart(fig_day, use_container_width=True)
 
 # -------------------------------------------------
 # TAB 4 — Discount Intelligence
 # -------------------------------------------------
 with tabs[3]:
+
     discount_products = (
-        filtered_df
-        .groupby("product_name", as_index=False)["discount_amount"]
+        filtered_df.groupby("product_name", as_index=False)["discount_amount"]
         .sum()
         .sort_values("discount_amount", ascending=False)
         .head(10)
@@ -338,37 +270,30 @@ with tabs[3]:
         discount_products,
         x="discount_amount",
         y="product_name",
-        orientation="h",
-        title="Top Discounted Products"
+        orientation="h"
     )
-    fig.update_layout(
-        template="plotly_white",
-        title_x=0.3,
-        title_font=dict(size=18)
-    )
+
+    fig_disc.update_layout(template="plotly_white")
+
     st.plotly_chart(fig_disc, use_container_width=True)
 
 # -------------------------------------------------
 # TAB 5 — Customer Behavior
 # -------------------------------------------------
 with tabs[4]:
+
     cust_sales = (
-        filtered_df
-        .groupby("customer_type", as_index=False)["net_amount"]
-        .sum()
+        filtered_df.groupby("customer_type", as_index=False)["net_amount"].sum()
     )
 
     fig_cust = px.pie(
         cust_sales,
         names="customer_type",
-        values="net_amount",
-        title="Revenue by Customer Type"
+        values="net_amount"
     )
-    fig.update_layout(
-        template="plotly_white",
-        title_x=0.3,
-        title_font=dict(size=18)
-    )
+
+    fig_cust.update_layout(template="plotly_white")
+
     st.plotly_chart(fig_cust, use_container_width=True)
 
 # -------------------------------------------------
@@ -376,18 +301,3 @@ with tabs[4]:
 # -------------------------------------------------
 st.divider()
 st.caption("© 2026 Executive Ecommerce Analytics Platform | Built with Streamlit & ML")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
