@@ -17,18 +17,28 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* Background Gradient */
+/* Background */
 [data-testid="stAppViewContainer"] {
     background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 100%);
 }
 
-/* Main Padding */
-.block-container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+/* Golden Headings */
+h1 {
+    color: #b8860b !important;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
-/* KPI Card Styling */
+h2 {
+    color: #c9a227 !important;
+    font-weight: 600;
+}
+
+h3 {
+    color: #d4af37 !important;
+}
+
+/* KPI Cards */
 div[data-testid="metric-container"] {
     background-color: white;
     padding: 20px;
@@ -37,31 +47,15 @@ div[data-testid="metric-container"] {
     border: 1px solid rgba(0,0,0,0.05);
 }
 
-/* Sidebar Styling */
+/* Sidebar */
 section[data-testid="stSidebar"] {
     background-color: #ffffff;
     border-right: 1px solid #e5e7eb;
 }
 
 </style>
-
-/* Golden Headings */
-h1 {
-    color: #b8860b !important;   /* rich gold */
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-h2 {
-    color: #c9a227 !important;   /* softer gold */
-    font-weight: 600;
-}
-
-h3 {
-    color: #d4af37 !important;   /* classic gold tone */
-}
-
 """, unsafe_allow_html=True)
+
 
 # -------------------------------------------------
 # Database connection
@@ -318,4 +312,5 @@ with tabs[4]:
 # -------------------------------------------------
 st.divider()
 st.caption("© 2026 Executive Ecommerce Analytics Platform | Built with Streamlit & ML")
+
 
