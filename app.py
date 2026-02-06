@@ -14,8 +14,22 @@ st.set_page_config(
 # -------------------------------------------------
 # Background Image (Ecommerce Theme)
 # -------------------------------------------------
-background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
-url("https://t3.ftcdn.net/jpg/02/76/26/34/360_F_276263400_etrgScQpUZ1xgtcRlRVpJBKHndASwaVR.jpg");
+# -------------------------------------------------
+# Ecommerce Background
+# -------------------------------------------------
+st.markdown("""
+<style>
+[data-testid="stAppViewContainer"] {
+    background-image: 
+        linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+        url("https://t3.ftcdn.net/jpg/02/76/26/34/360_F_276263400_etrgScQpUZ1xgtcRlRVpJBKHndASwaVR.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # -------------------------------------------------
 # Database connection
 # -------------------------------------------------
@@ -305,6 +319,7 @@ with tabs[4]:
 # -------------------------------------------------
 st.divider()
 st.caption("© 2026 Executive Ecommerce Analytics Platform | Built with Streamlit & ML")
+
 
 
 
