@@ -14,36 +14,8 @@ st.set_page_config(
 # -------------------------------------------------
 # Background Image (Ecommerce Theme)
 # -------------------------------------------------
-st.markdown("""
-<style>
-[data-testid="stAppViewContainer"] {
-    background: linear-gradient(to right, #f8f9fa, #eef2f3);
-}
-</style>
-""", unsafe_allow_html=True)
-
-# -------------------------------------------------
-# Custom Styling
-# -------------------------------------------------
-st.markdown("""
-    <style>
-    .main {
-        background-color: #f8f9fa;
-    }
-    .stMetric {
-        background-color: white;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
-    }
-    .block-container {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-
+background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+url("https://t3.ftcdn.net/jpg/02/76/26/34/360_F_276263400_etrgScQpUZ1xgtcRlRVpJBKHndASwaVR.jpg");
 # -------------------------------------------------
 # Database connection
 # -------------------------------------------------
@@ -333,6 +305,7 @@ with tabs[4]:
 # -------------------------------------------------
 st.divider()
 st.caption("© 2026 Executive Ecommerce Analytics Platform | Built with Streamlit & ML")
+
 
 
 
