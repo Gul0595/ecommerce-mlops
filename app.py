@@ -22,20 +22,20 @@ st.markdown("""
     background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 100%);
 }
 
-/* Golden Headings */
+/* Coral Blue Headings */
 h1 {
-    color: #b8860b !important;
+    color: #0ea5e9 !important;   /* coral blue primary */
     font-weight: 700;
     letter-spacing: 1px;
 }
 
 h2 {
-    color: #c9a227 !important;
+    color: #0284c7 !important;   /* slightly deeper blue */
     font-weight: 600;
 }
 
 h3 {
-    color: #d4af37 !important;
+    color: #38bdf8 !important;   /* softer accent blue */
 }
 
 /* KPI Cards */
@@ -55,7 +55,6 @@ section[data-testid="stSidebar"] {
 
 </style>
 """, unsafe_allow_html=True)
-
 
 # -------------------------------------------------
 # Database connection
@@ -312,5 +311,6 @@ with tabs[4]:
 # -------------------------------------------------
 st.divider()
 st.caption("© 2026 Executive Ecommerce Analytics Platform | Built with Streamlit & ML")
+
 
 
