@@ -183,6 +183,7 @@ with tabs[0]:
     )
 
     st.plotly_chart(fig, use_container_width=True)
+    
     with st.container():
     st.markdown("""
         <div style="
@@ -375,6 +376,7 @@ with tabs[4]:
 # -------------------------------------------------
 st.divider()
 st.caption("© 2026 Executive Ecommerce Analytics Platform | Built with Streamlit & ML")
+
 
 
 
