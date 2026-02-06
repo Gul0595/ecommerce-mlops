@@ -261,7 +261,7 @@ with tabs[2]:
         y="net_amount",
         title="Revenue by Day of Week"
     )
-        fig.update_layout(
+    fig.update_layout(
         template="plotly_white",
         title_x=0.3,
         title_font=dict(size=18)
@@ -322,6 +322,7 @@ with tabs[4]:
 # -------------------------------------------------
 st.divider()
 st.caption("© 2026 Executive Ecommerce Analytics Platform | Built with Streamlit & ML")
+
 
 
 
