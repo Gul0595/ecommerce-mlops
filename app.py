@@ -12,53 +12,35 @@ st.set_page_config(
 )
 
 # -------------------------------------------------
-# Dark Theme Styling
+# Premium Styling
 # -------------------------------------------------
 st.markdown("""
 <style>
 
-/* Main Background */
+/* Background Gradient */
 [data-testid="stAppViewContainer"] {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    color: white;
+    background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 100%);
 }
 
-/* Main padding */
+/* Main Padding */
 .block-container {
     padding-top: 2rem;
     padding-bottom: 2rem;
 }
 
-/* Sidebar */
-section[data-testid="stSidebar"] {
-    background-color: #111827;
-    border-right: 1px solid #1f2937;
-}
-
-/* Sidebar text */
-section[data-testid="stSidebar"] * {
-    color: #e5e7eb !important;
-}
-
-/* KPI Cards */
+/* KPI Card Styling */
 div[data-testid="metric-container"] {
-    background-color: #1e293b;
+    background-color: white;
     padding: 20px;
     border-radius: 14px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    border: 1px solid #334155;
-    color: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.05);
 }
 
-/* Tabs */
-button[data-baseweb="tab"] {
-    color: #cbd5e1 !important;
-}
-
-button[data-baseweb="tab"][aria-selected="true"] {
-    background-color: #1e293b !important;
-    color: white !important;
-    border-radius: 8px;
+/* Sidebar Styling */
+section[data-testid="stSidebar"] {
+    background-color: #ffffff;
+    border-right: 1px solid #e5e7eb;
 }
 
 </style>
@@ -161,8 +143,8 @@ filtered_df = filtered_df[
 # Header
 # -------------------------------------------------
 st.markdown("""
-# 🛒 Executive Ecommerce Analytics Dashboard  
-### Real-time business intelligence powered by Machine Learning
+# 🛒 Executive Ecommerce Analytics Dashboard
+Real-time business intelligence powered by Machine Learning
 """)
 st.divider()
 
@@ -195,12 +177,16 @@ with tabs[0]:
         filtered_df.groupby("order_date", as_index=False)["net_amount"].sum()
     )
 
-    fig = px.line(daily_revenue, x="order_date", y="net_amount")
+    fig = px.line(
+        daily_revenue,
+        x="order_date",
+        y="net_amount"
+    )
 
     fig.update_layout(
-        template="plotly_dark",
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)"
+        template="plotly_white",
+        paper_bgcolor="white",
+        plot_bgcolor="white"
     )
 
     st.plotly_chart(fig, use_container_width=True)
@@ -219,9 +205,8 @@ with tabs[1]:
     )
 
     fig_city = px.bar(city_sales, x="city", y="net_amount")
-    fig_city.update_layout(template="plotly_dark",
-                           paper_bgcolor="rgba(0,0,0,0)",
-                           plot_bgcolor="rgba(0,0,0,0)")
+    fig_city.update_layout(template="plotly_white")
+
     col1.plotly_chart(fig_city, use_container_width=True)
 
     product_sales = (
@@ -231,14 +216,15 @@ with tabs[1]:
         .head(10)
     )
 
-    fig_prod = px.bar(product_sales,
-                      x="net_amount",
-                      y="product_name",
-                      orientation="h")
+    fig_prod = px.bar(
+        product_sales,
+        x="net_amount",
+        y="product_name",
+        orientation="h"
+    )
 
-    fig_prod.update_layout(template="plotly_dark",
-                           paper_bgcolor="rgba(0,0,0,0)",
-                           plot_bgcolor="rgba(0,0,0,0)")
+    fig_prod.update_layout(template="plotly_white")
+
     col2.plotly_chart(fig_prod, use_container_width=True)
 
 # -------------------------------------------------
@@ -253,9 +239,8 @@ with tabs[2]:
     )
 
     fig_hour = px.line(hourly_sales, x="order_hour", y="net_amount")
-    fig_hour.update_layout(template="plotly_dark",
-                           paper_bgcolor="rgba(0,0,0,0)",
-                           plot_bgcolor="rgba(0,0,0,0)")
+    fig_hour.update_layout(template="plotly_white")
+
     col1.plotly_chart(fig_hour, use_container_width=True)
 
     day_sales = (
@@ -265,9 +250,8 @@ with tabs[2]:
     )
 
     fig_day = px.bar(day_sales, x="day", y="net_amount")
-    fig_day.update_layout(template="plotly_dark",
-                          paper_bgcolor="rgba(0,0,0,0)",
-                          plot_bgcolor="rgba(0,0,0,0)")
+    fig_day.update_layout(template="plotly_white")
+
     col2.plotly_chart(fig_day, use_container_width=True)
 
 # -------------------------------------------------
@@ -282,14 +266,15 @@ with tabs[3]:
         .head(10)
     )
 
-    fig_disc = px.bar(discount_products,
-                      x="discount_amount",
-                      y="product_name",
-                      orientation="h")
+    fig_disc = px.bar(
+        discount_products,
+        x="discount_amount",
+        y="product_name",
+        orientation="h"
+    )
 
-    fig_disc.update_layout(template="plotly_dark",
-                           paper_bgcolor="rgba(0,0,0,0)",
-                           plot_bgcolor="rgba(0,0,0,0)")
+    fig_disc.update_layout(template="plotly_white")
+
     st.plotly_chart(fig_disc, use_container_width=True)
 
 # -------------------------------------------------
@@ -301,16 +286,18 @@ with tabs[4]:
         filtered_df.groupby("customer_type", as_index=False)["net_amount"].sum()
     )
 
-    fig_cust = px.pie(cust_sales,
-                      names="customer_type",
-                      values="net_amount")
+    fig_cust = px.pie(
+        cust_sales,
+        names="customer_type",
+        values="net_amount"
+    )
 
-    fig_cust.update_layout(template="plotly_dark",
-                           paper_bgcolor="rgba(0,0,0,0)")
+    fig_cust.update_layout(template="plotly_white")
+
     st.plotly_chart(fig_cust, use_container_width=True)
 
 # -------------------------------------------------
 # Footer
 # -------------------------------------------------
 st.divider()
-st.caption("© 2026 Executive Ecommerce Analytics Platform | Dark Edition")
+st.caption("© 2026 Executive Ecommerce Analytics Platform | Built with Streamlit & ML")
