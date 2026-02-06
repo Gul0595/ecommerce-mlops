@@ -11,6 +11,27 @@ st.set_page_config(
     page_title="Executive Ecommerce Analytics & ML Dashboard",
     layout="wide"
 )
+# -------------------------------------------------
+# Custom Styling
+# -------------------------------------------------
+st.markdown("""
+    <style>
+    .main {
+        background-color: #f8f9fa;
+    }
+    .stMetric {
+        background-color: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+    }
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 
 # -------------------------------------------------
 # Database connection
@@ -85,6 +106,8 @@ discount_range = st.sidebar.slider(
 # -------------------------------------------------
 # Apply filters
 # -------------------------------------------------
+st.sidebar.markdown("## ⚙️ Filter Controls")
+st.sidebar.caption("Refine dashboard insights dynamically")
 filtered_df = sales_df.copy()
 
 if city_filter:
@@ -124,11 +147,11 @@ tabs = st.tabs([
 with tabs[0]:
     col1, col2, col3, col4 = st.columns(4)
 
-    col1.metric("Total Orders", len(filtered_df))
-    col2.metric("Total Revenue", f"₹{filtered_df['net_amount'].sum():,.0f}")
-    col3.metric("Avg Order Value", f"₹{filtered_df['net_amount'].mean():,.0f}")
+    col1.metric("📦 Total Orders", f"{len(filtered_df):,}")
+    col2.metric("💰 Total Revenue", f"₹{filtered_df['net_amount'].sum():,.0f}")
+    col3.metric("🧾 Avg Order Value", f"₹{filtered_df['net_amount'].mean():,.0f}")
     col4.metric(
-        "Discounted Orders %",
+        "🏷 Discounted Orders %",
         f"{(filtered_df['discount_pct'] > 0).mean() * 100:.1f}%"
     )
 
@@ -144,6 +167,12 @@ with tabs[0]:
         y="net_amount",
         title="Daily Revenue Trend"
     )
+    fig.update_layout(
+        template="plotly_white",
+        title_x=0.3,
+        title_font=dict(size=18)
+    )
+
     st.plotly_chart(fig, use_container_width=True)
 
 # -------------------------------------------------
@@ -165,6 +194,11 @@ with tabs[1]:
         y="net_amount",
         title="Revenue by City"
     )
+        fig.update_layout(
+        template="plotly_white",
+        title_x=0.3,
+        title_font=dict(size=18)
+    )
     col1.plotly_chart(fig_city, use_container_width=True)
 
     product_sales = (
@@ -181,6 +215,11 @@ with tabs[1]:
         y="product_name",
         orientation="h",
         title="Top 10 Products by Revenue"
+    )
+    fig.update_layout(
+        template="plotly_white",
+        title_x=0.3,
+        title_font=dict(size=18)
     )
     col2.plotly_chart(fig_prod, use_container_width=True)
 
@@ -202,6 +241,11 @@ with tabs[2]:
         y="net_amount",
         title="Revenue by Hour"
     )
+    fig.update_layout(
+        template="plotly_white",
+        title_x=0.3,
+        title_font=dict(size=18)
+    )
     col1.plotly_chart(fig_hour, use_container_width=True)
 
     day_sales = (
@@ -216,6 +260,11 @@ with tabs[2]:
         x="day",
         y="net_amount",
         title="Revenue by Day of Week"
+    )
+        fig.update_layout(
+        template="plotly_white",
+        title_x=0.3,
+        title_font=dict(size=18)
     )
     col2.plotly_chart(fig_day, use_container_width=True)
 
@@ -238,6 +287,11 @@ with tabs[3]:
         orientation="h",
         title="Top Discounted Products"
     )
+    fig.update_layout(
+        template="plotly_white",
+        title_x=0.3,
+        title_font=dict(size=18)
+    )
     st.plotly_chart(fig_disc, use_container_width=True)
 
 # -------------------------------------------------
@@ -256,11 +310,20 @@ with tabs[4]:
         values="net_amount",
         title="Revenue by Customer Type"
     )
+    fig.update_layout(
+        template="plotly_white",
+        title_x=0.3,
+        title_font=dict(size=18)
+    )
     st.plotly_chart(fig_cust, use_container_width=True)
 
 # -------------------------------------------------
 # Footer
 # -------------------------------------------------
-st.caption("© Executive Ecommerce Analytics Platform")
+st.divider()
+st.caption("© 2026 Executive Ecommerce Analytics Platform | Built with Streamlit & ML")
+
+
+
 
 
