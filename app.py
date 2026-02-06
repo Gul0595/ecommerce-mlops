@@ -22,7 +22,7 @@ st.markdown("""
 [data-testid="stAppViewContainer"] {
     background-image: 
         linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
-        url("https://t3.ftcdn.net/jpg/02/76/26/34/360_F_276263400_etrgScQpUZ1xgtcRlRVpJBKHndASwaVR.jpg");
+        url("https://png.pngtree.com/background/20230611/original/pngtree-ecommerce-development-at-a-glance-on-the-internet-with-all-of-picture-image_3171281.jpg");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -319,6 +319,7 @@ with tabs[4]:
 # -------------------------------------------------
 st.divider()
 st.caption("© 2026 Executive Ecommerce Analytics Platform | Built with Streamlit & ML")
+
 
 
 
