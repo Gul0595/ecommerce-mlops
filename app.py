@@ -44,6 +44,23 @@ section[data-testid="stSidebar"] {
 }
 
 </style>
+
+/* Golden Headings */
+h1 {
+    color: #b8860b !important;   /* rich gold */
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+h2 {
+    color: #c9a227 !important;   /* softer gold */
+    font-weight: 600;
+}
+
+h3 {
+    color: #d4af37 !important;   /* classic gold tone */
+}
+
 """, unsafe_allow_html=True)
 
 # -------------------------------------------------
@@ -301,3 +318,4 @@ with tabs[4]:
 # -------------------------------------------------
 st.divider()
 st.caption("© 2026 Executive Ecommerce Analytics Platform | Built with Streamlit & ML")
+
