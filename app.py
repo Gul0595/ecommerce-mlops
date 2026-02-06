@@ -12,15 +12,32 @@ st.set_page_config(
     layout="wide"
 )
 # -------------------------------------------------
-# Background Image (Ecommerce Theme)
-# -------------------------------------------------
-# -------------------------------------------------
 # Ecommerce Background
+# -------------------------------------------------
+# -------------------------------------------------
+# Premium Background Styling
 # -------------------------------------------------
 st.markdown("""
 <style>
 [data-testid="stAppViewContainer"] {
-    background-color: #fff9e6;
+    background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 100%);
+}
+
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+div[data-testid="metric-container"] {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.05);
 }
 </style>
 """, unsafe_allow_html=True)
@@ -166,6 +183,20 @@ with tabs[0]:
     )
 
     st.plotly_chart(fig, use_container_width=True)
+    with st.container():
+    st.markdown("""
+        <div style="
+            background-color:white;
+            padding:20px;
+            border-radius:15px;
+            box-shadow:0 6px 18px rgba(0,0,0,0.07);
+        ">
+    """, unsafe_allow_html=True)
+
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
 
 # -------------------------------------------------
 # TAB 2 — City & Product Insights
@@ -192,6 +223,21 @@ with tabs[1]:
         title_font=dict(size=18)
     )
     col1.plotly_chart(fig_city, use_container_width=True)
+    
+    with st.container():
+    st.markdown("""
+        <div style="
+            background-color:white;
+            padding:20px;
+            border-radius:15px;
+            box-shadow:0 6px 18px rgba(0,0,0,0.07);
+        ">
+    """, unsafe_allow_html=True)
+
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
 
     product_sales = (
         filtered_df
@@ -214,6 +260,21 @@ with tabs[1]:
         title_font=dict(size=18)
     )
     col2.plotly_chart(fig_prod, use_container_width=True)
+    
+    with st.container():
+    st.markdown("""
+        <div style="
+            background-color:white;
+            padding:20px;
+            border-radius:15px;
+            box-shadow:0 6px 18px rgba(0,0,0,0.07);
+        ">
+    """, unsafe_allow_html=True)
+
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
 
 # -------------------------------------------------
 # TAB 3 — Time-based Insights
@@ -314,6 +375,7 @@ with tabs[4]:
 # -------------------------------------------------
 st.divider()
 st.caption("© 2026 Executive Ecommerce Analytics Platform | Built with Streamlit & ML")
+
 
 
 
