@@ -12,6 +12,34 @@ st.set_page_config(
     layout="wide"
 )
 # -------------------------------------------------
+# Background Image (Ecommerce Theme)
+# -------------------------------------------------
+page_bg_img = """
+<style>
+[data-testid="stAppViewContainer"] {
+    background-image: url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+[data-testid="stAppViewContainer"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.85);  /* soft white overlay */
+}
+
+.block-container {
+    position: relative;
+    z-index: 1;
+}
+</style>
+"""
+
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
+# -------------------------------------------------
 # Custom Styling
 # -------------------------------------------------
 st.markdown("""
@@ -322,6 +350,7 @@ with tabs[4]:
 # -------------------------------------------------
 st.divider()
 st.caption("© 2026 Executive Ecommerce Analytics Platform | Built with Streamlit & ML")
+
 
 
 
