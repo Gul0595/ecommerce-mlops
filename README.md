@@ -2,8 +2,6 @@
 
 Production-grade ecommerce data system with real-time streaming, automated model benchmarking, hyperparameter tuning, ensemble modeling, CI/CD gating, and executive analytics dashboard.
 
-🔗 Repository: https://github.com/Gul0595/ecommerce-mlops
-
 🚀 Project Overview
 
 This project simulates a real-world ecommerce company’s production ML system.
